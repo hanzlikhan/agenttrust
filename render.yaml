@@ -1,0 +1,29 @@
+# Render blueprint for the AgentTrust API.
+#
+# Usage:
+#   1. Push this repo to GitHub.
+#   2. Create the Neon database first (see DEPLOY.md) and copy its
+#      connection string.
+#   3. In Render: New -> Blueprint -> connect the repo -> paste the
+#      DATABASE_URL and ADMIN_TOKEN when prompted.
+#
+# The Dockerfile (apps/api/Dockerfile) runs `alembic upgrade head` on
+# every start, so the schema is always current. No separate migrate step.
+
+services:
+  - type: web
+    name: agenttrust-api
+    runtime: docker
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: ./apps/api
+    plan: free
+    healthCheckPath: /api/v1/health/live
+    envVars:
+      - key: DATABASE_URL
+        sync: false # paste the Neon connection string (psycopg URL)
+      - key: ADMIN_TOKEN
+        generateValue: true # used for issuing API keys; save it somewhere safe
+      - key: AGENTTRUST_CORS_ORIGINS
+        value: http://localhost:3000 # replace with the Vercel URL after deploy
+      - key: AGENTTRUST_ENV
+        value: prod

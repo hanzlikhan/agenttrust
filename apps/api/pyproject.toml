@@ -1,0 +1,17 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "DTZ", "S", "RUF100"]
+# B008 flags function calls in default args, but Depends() in a signature default
+# is FastAPI's canonical dependency-injection idiom, not a real defect.
+ignore = ["B008"]
+
+[tool.ruff.lint.per-file-ignores]
+# S101 (asserts) and S105 (hardcoded fixture credentials) are test-only by design.
+"tests/**" = ["S101", "S105"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

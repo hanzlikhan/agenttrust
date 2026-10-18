@@ -1,0 +1,44 @@
+# AgentTrust .gitignore — never commit secrets, build output, or local state.
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Databases and local data (dev/eval/test)
+*.db
+*.sqlite3
+agenttrust_eval
+agenttrust_test
+agenttrust_fresh*
+agenttrust_demo
+pgdata*/
+
+# Reports and scratch
+benchmark-report*.json
+!/evals/benchmark-report-2026-10-17.json
+/tmp/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

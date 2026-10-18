@@ -1,0 +1,53 @@
+# AgentTrust — local stack (Phase 1)
+#
+# NOTE: `docker compose config` / `docker compose up` could NOT be run in the
+# build environment (no Docker available). The YAML below was parse-validated
+# with Python; run `docker compose config` on a Docker host before `up`.
+#
+# Usage:
+#   cp apps/api/.env.example apps/api/.env   # fill in ADMIN_TOKEN
+#   export POSTGRES_PASSWORD=...             # or rely on the dev default below
+#   docker compose up --build
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: agenttrust
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-agenttrust}
+      POSTGRES_DB: agenttrust
+    volumes:
+      - agenttrust_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agenttrust -d agenttrust"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  api:
+    build: ./apps/api
+    env_file: ./apps/api/.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://agenttrust:${POSTGRES_PASSWORD:-agenttrust}@db:5432/agenttrust
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8000:8000"
+
+  # The background worker (outbox publisher, evaluators) arrives in Phase 4.
+  # It is intentionally NOT defined yet.
+
+  web:
+    build: ./apps/web
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:3000:3000"
+
+volumes:
+  agenttrust_pgdata:

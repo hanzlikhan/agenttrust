@@ -1,0 +1,146 @@
+/*
+ * AgentTrust design tokens.
+ *
+ * Every color the UI uses flows through these CSS custom properties so the
+ * two themes (light via :root, dark via .dark) can diverge without
+ * duplicating component code. Tailwind utilities reference them through
+ * tailwind.config.js (colors.bg, colors.allow.bg, ...).
+ *
+ * Default theme is dark: the root layout renders <html class="dark"> and
+ * only removes it when the user has persisted a "light" preference.
+ *
+ * Naming: --at-<group>-<slot>. Full documentation (usage rules, contrast
+ * notes, status-color policy) lives in docs/DESIGN_TOKENS.md.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Light theme (explicit, reachable via the header theme toggle)       */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Neutrals */
+  --at-bg: #ffffff;
+  --at-surface: #f7f7f9;
+  --at-surface-2: #efeff2;
+  --at-border: #e2e2e8;
+  --at-text-1: #17171b; /* primary text */
+  --at-text-2: #52525c; /* secondary text */
+  --at-text-3: #6b6b76; /* tertiary text — darkened for WCAG AA on white (Phase 8 audit M5) */
+
+  /* Brand accent (interactive elements, active nav) */
+  --at-brand: #1d4ed8;
+  --at-brand-hover: #1e40af;
+  --at-brand-text: #ffffff;
+
+  /* Semantic security colors — always paired with icon + text label */
+  --at-allow-bg: #e7f6ee;
+  --at-allow-text: #14703c;
+  --at-allow-border: #a9dfc0;
+
+  --at-deny-bg: #fdecec;
+  --at-deny-text: #b42318;
+  --at-deny-border: #f3b8b3;
+
+  --at-review-bg: #fdf3e0;
+  --at-review-text: #9a5b0b;
+  --at-review-border: #f0d29a;
+
+  --at-info-bg: #e9f1fd;
+  --at-info-text: #1d4ed8;
+  --at-info-border: #b4cdf6;
+
+  --at-neutral-bg: #f1f1f5;
+  --at-neutral-text: #52525c;
+  --at-neutral-border: #d4d4dc;
+
+  /* Focus ring — visible on every :focus-visible, both themes */
+  --at-focus-ring: #1d4ed8;
+
+  /* Spacing scale (1 unit = 0.25rem) */
+  --at-space-1: 0.25rem;
+  --at-space-2: 0.5rem;
+  --at-space-3: 0.75rem;
+  --at-space-4: 1rem;
+  --at-space-6: 1.5rem;
+  --at-space-8: 2rem;
+
+  /* Radii */
+  --at-radius-sm: 4px;
+  --at-radius-md: 8px;
+  --at-radius-lg: 12px;
+  --at-radius-xl: 16px;
+
+  /* Font stacks. --font-sans is provided by next/font (Inter) in the root
+   * layout; the system fallbacks keep text readable if the webfont fails. */
+  --at-font-sans: var(--font-sans), system-ui, -apple-system, "Segoe UI",
+    Arial, sans-serif;
+  --at-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Elevation */
+  --at-shadow-card: 0 1px 2px rgb(23 23 27 / 0.06),
+    0 4px 16px rgb(23 23 27 / 0.08);
+  --at-shadow-popover: 0 8px 32px rgb(23 23 27 / 0.16);
+
+  color-scheme: light;
+}
+
+/* ------------------------------------------------------------------ */
+/* Dark theme — the default                                             */
+/* ------------------------------------------------------------------ */
+.dark {
+  --at-bg: #0a0a0d;
+  --at-surface: #121216;
+  --at-surface-2: #1a1a20;
+  --at-border: #27272e;
+  --at-text-1: #f0f0f4;
+  --at-text-2: #b4b4bf;
+  --at-text-3: #7d7d8a;
+
+  --at-brand: #2563eb;
+  --at-brand-hover: #3b82f6;
+  --at-brand-text: #ffffff;
+
+  --at-allow-bg: #0e2a1b;
+  --at-allow-text: #7ee2a8;
+  --at-allow-border: #1d4d33;
+
+  --at-deny-bg: #2e1518;
+  --at-deny-text: #f08a8a;
+  --at-deny-border: #5c2222;
+
+  --at-review-bg: #2e2410;
+  --at-review-text: #f2c66d;
+  --at-review-border: #5c451a;
+
+  --at-info-bg: #122539;
+  --at-info-text: #8fc3ff;
+  --at-info-border: #24496f;
+
+  --at-neutral-bg: #16161b;
+  --at-neutral-text: #bcbdc9;
+  --at-neutral-border: #33333b;
+
+  --at-focus-ring: #5b9bff;
+
+  /* Spacing, radii, and fonts are identical across themes. */
+  --at-space-1: 0.25rem;
+  --at-space-2: 0.5rem;
+  --at-space-3: 0.75rem;
+  --at-space-4: 1rem;
+  --at-space-6: 1.5rem;
+  --at-space-8: 2rem;
+
+  --at-radius-sm: 4px;
+  --at-radius-md: 8px;
+  --at-radius-lg: 12px;
+  --at-radius-xl: 16px;
+
+  --at-font-sans: var(--font-sans), system-ui, -apple-system, "Segoe UI",
+    Arial, sans-serif;
+  --at-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Dark surfaces separate by border, not shadow. */
+  --at-shadow-card: none;
+  --at-shadow-popover: 0 8px 32px rgb(0 0 0 / 0.5);
+
+  color-scheme: dark;
+}
