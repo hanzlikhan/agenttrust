@@ -17,7 +17,7 @@ services:
     dockerfilePath: ./apps/api/Dockerfile
     dockerContext: ./apps/api
     plan: free
-    healthCheckPath: /api/v1/health/live
+    healthCheckPath: /health/live
     envVars:
       - key: DATABASE_URL
         sync: false # paste the Neon connection string (psycopg URL)
@@ -27,3 +27,5 @@ services:
         value: http://localhost:3000 # replace with the Vercel URL after deploy
       - key: AGENTTRUST_ENV
         value: prod
+      - key: GROQ_API_KEY
+        sync: false # server-side key for the public Live Agent chat endpoint

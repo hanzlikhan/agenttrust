@@ -11,6 +11,7 @@ import {
   IconEvaluations,
   IconIncidents,
   IconMenu,
+  IconLiveAgent,
   IconOverview,
   IconPolicies,
   IconRuns,
@@ -41,6 +42,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "Overview", Icon: IconOverview },
   { href: "/runs", label: "Executions", Icon: IconRuns },
+  { href: "/agent", label: "Live Agent", Icon: IconLiveAgent },
   { href: "/approvals", label: "Approvals", Icon: IconApprovals },
   { href: "/policies", label: "Policies", Icon: IconPolicies },
   { href: "/agents", label: "Agents", Icon: IconAgents },

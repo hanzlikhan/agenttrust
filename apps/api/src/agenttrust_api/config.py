@@ -28,6 +28,11 @@ class Settings(BaseSettings):
     # (ADR-0xx). No model is ever downloaded or required.
     AGENTTRUST_OLLAMA_URL: str = "http://localhost:11434"
     AGENTTRUST_OLLAMA_MODEL: str = "qwen2.5:3b"
+    # Public demo agent (Live Agent page). Server-side Groq key for the LLM
+    # loop; the endpoint is keyless but IP rate-limited (see below).
+    GROQ_API_KEY: str = ""
+    AGENTTRUST_AGENT_MODEL: str = "openai/gpt-oss-120b"
+    AGENTTRUST_AGENT_RATE_LIMIT_PER_MINUTE: int = 12
     AGENTTRUST_ANALYZE_TIMEOUT_SECONDS: int = 30
 
 

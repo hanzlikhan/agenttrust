@@ -12,6 +12,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from .config import settings
 from .deps import AppError
 from .routers import (
+    agent,
     agents,
     approvals,
     dashboard,
@@ -114,6 +115,7 @@ def create_app() -> FastAPI:
     app.include_router(events.router, prefix="/api/v1")
     app.include_router(dashboard.router, prefix="/api/v1")
     app.include_router(agents.router, prefix="/api/v1")
+    app.include_router(agent.router, prefix="/api/v1")
     app.include_router(metrics.router, prefix="/api/v1")
     return app
 

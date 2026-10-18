@@ -641,3 +641,24 @@ class EvaluationRunDetailResponse(BaseModel):
     run: EvaluationRunSummary
     metrics: EvaluationMetrics
     results: list[EvaluationCaseResult]
+
+
+class AgentChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=500)
+    session_id: str = Field(min_length=1, max_length=64)
+
+
+class AgentChatResponse(BaseModel):
+    reply: str
+    status: str  # done | denied | awaiting_approval | no_action
+    tool_call_id: str | None = None
+    approval_id: str | None = None
+
+
+class AgentCompleteRequest(BaseModel):
+    approval_id: str = Field(min_length=1, max_length=64)
+
+
+class AgentCompleteResponse(BaseModel):
+    status: str  # executed | pending | rejected | expired
+    reply: str

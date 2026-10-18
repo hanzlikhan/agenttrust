@@ -66,12 +66,14 @@ pending approval.
    - `DATABASE_URL` — the Neon string from step 1 (with `postgresql+psycopg://`)
    - `ADMIN_TOKEN` — Render generates one; **copy it somewhere safe**,
      you'll need it in step 6.
+   - `GROQ_API_KEY` — your Groq key (for the public Live Agent chat page;
+     the endpoint is IP rate-limited).
    - Leave `AGENTTRUST_CORS_ORIGINS` as `http://localhost:3000` for now —
      you'll update it after Vercel.
 4. Deploy. The Dockerfile runs migrations on every start, so the schema is
    always current. First build takes ~5 minutes.
 5. When it's live, note the URL: `https://agenttrust-api-xxxx.onrender.com`.
-   Check `https://<your-api>/api/v1/health/live` returns `{"timestamp":...}`.
+   Check `https://<your-api>/health/live` returns `{"status":"ok",...}`.
 
 ## 4. Dashboard — Vercel (5 min)
 
